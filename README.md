@@ -26,7 +26,7 @@ $ bundle
 Usage
 -----
 
-In a irb REPL:
+In an irb REPL:
 
 ```irb
 $ bundle exec irb
@@ -96,10 +96,27 @@ ruby flatten:  0.000006   0.000001   0.000007 (  0.000007)
 Issues
 ------
 * currently raises error for non Array, but could prefer to ensure incoming argument is array using `Array(array)` to avoid error overhead?
-* currently uses a combination iterative/recursive approach.  Could we have a purely recursive and/or purely iterative approach?
+* currently uses a combination iterative/recursive approach.  Could we have a purely recursive and/or purely iterative approach?  Have tried with the following:
+
+  ```rb
+  def flatten(array)
+    head, *tail = array
+    return [] if head.nil?
+    return Array(head) if tail.empty?
+
+    flatten(head).push(*flatten(tail))
+  end
+  ```
+
+  but doesn't work for highly nested arrays - would need more time to get this approach working in ruby - but maybe it could improve performance?
 
 
 Future Work
 -----------
 * Improve performance
 * Release as RubyGem?
+
+Related
+-------
+* https://stackoverflow.com/questions/41408696/flattening-an-array-recursively-in-ruby
+* https://stackoverflow.com/questions/24427374/how-to-implement-flatten-list-in-prolog-with-tail-recursion
