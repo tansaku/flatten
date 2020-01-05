@@ -3,7 +3,12 @@ Flatten
 
 An algorithm to flatten an arbitrarily nested array of values, e.g.
 
+```rb
 [ 1, [ 2, [ 3 ] ], 4 ] -> [ 1, 2, 3, 4 ]
+```
+Ruby implementation includes tests, checks for test coverage and uses rubocop to check code quality. Performance metrics provided via ruby's default benchmarking tool.
+
+The algorithm operates by iterating through the received array, testing each element in turn.  If an element is an array then it is recursively flattened.  Any element that is not an array is left as is, and both recursively flattened arrays, and non-array items are squashed onto a single array.
 
 Requirements
 ------------
@@ -70,10 +75,31 @@ Finished in 0.00234 seconds (files took 0.16174 seconds to load)
 COVERAGE: 100.00% -- 5/5 lines in 1 files
 ```
 
-Todo
------
-* more test cases
-* comments?
-* error handling
-* performance
-* github
+Performance
+-----------
+Performance is slightly lower than existing Ruby default implementation.  Run performance check via:
+
+```sh
+$ rake performance
+```
+
+Which will give output like the following:
+
+```
+yarn run v1.15.2
+$ rake performance
+              user     system      total        real
+this flatten:  0.000016   0.000002   0.000018 (  0.000013)
+ruby flatten:  0.000006   0.000001   0.000007 (  0.000007)
+```
+
+Issues
+------
+* currently raises error for non Array, but could prefer to ensure incoming argument is array using `Array(array)` to avoid error overhead?
+* currently uses a combination iterative/recursive approach.  Could we have a purely recursive and/or purely iterative approach?
+
+
+Future Work
+-----------
+* Improve performance
+* Release as RubyGem?

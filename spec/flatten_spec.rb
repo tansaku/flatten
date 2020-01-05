@@ -23,4 +23,7 @@ describe 'flatten' do
     result = [1, 2, 3, 2, 3, 4, 5, 5, 6, 7, 8, 9, 4]
     expect(flatten(array)).to eq(result)
   end
+  it 'only works on arrays' do
+    expect { flatten(1) }.to raise_error NonArrayError
+  end
 end

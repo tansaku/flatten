@@ -9,6 +9,7 @@ gem 'rake'
 group :test do
   gem 'rspec'
   gem 'rubocop'
+  gem 'rubocop-performance'
   gem 'rubocop-rspec'
   gem 'simplecov'
   gem 'simplecov-console'
